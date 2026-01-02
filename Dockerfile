@@ -1,21 +1,15 @@
-# 1. Build the code
-FROM node:18-alpine as builder
-WORKDIR /app
-COPY package*.json ./
-# 'legacy-peer-deps' fixes common library conflict errors
-RUN npm install --legacy-peer-deps
-
-COPY . .
-# This prevents the build from failing on small warnings (common in React)
-ENV CI=false
-RUN npm run build
-
-# 2. Serve the code with a web server
+# Use Nginx to serve the static files
 FROM nginx:alpine
-# COPY --from=builder /app/dist /usr/share/nginx/html
-# IMPORTANT: If you use 'Create React App', change 'dist' to 'build' in the line below:
-COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Cloud Run needs port 8080
+# Copy your HTML/CSS/JS files to the Nginx web folder
+COPY . /usr/share/nginx/html
+
+# Cloud Run expects the app to listen on port 8080.
+# By default, Nginx listens on 80. This command switches it to 8080.
+RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf
+
+# Expose port 8080
 EXPOSE 8080
+
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

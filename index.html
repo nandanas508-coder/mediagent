@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medi Agent | AI Healthcare</title>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo" onclick="showSection('home')">
+            <i data-lucide="heart-pulse"></i> Medi Agent
+        </div>
+        <div class="nav-links">
+            <button onclick="showSection('chat')">AI Chat</button>
+            <button onclick="showSection('history')">Reports</button>
+            <button class="btn-status" onclick="showSection('status')">
+                <i data-lucide="clock"></i> Status
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section id="home" class="view animate__animated animate__fadeIn">
+            <header class="hero">
+                <div class="hero-content">
+                    <h1>Your Intelligent <span class="highlight">Medi Agent</span></h1>
+                    <p>Real-time symptom analysis and personalized wellness plans.</p>
+                </div>
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1000&q=80" alt="Medical AI" class="hero-image">
+                </div>
+            </header>
+
+            <div class="grid">
+                <div class="card" onclick="showSection('chat')">
+                    <i data-lucide="bot" class="icon"></i>
+                    <h3>AI Chatbot</h3>
+                    <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd05a?auto=format&fit=crop&w=400&q=80" alt="Chat" class="card-image">
+                </div>
+                <div class="card" onclick="showSection('history')">
+                    <i data-lucide="clipboard-list" class="icon"></i>
+                    <h3>Medical History</h3>
+                    <img src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?auto=format&fit=crop&w=400&q=80" alt="Reports" class="card-image">
+                </div>
+                <div class="card" onclick="showSection('wellness')">
+                    <i data-lucide="leaf" class="icon"></i>
+                    <h3>Diet & Fitness</h3>
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80" alt="Wellness" class="card-image">
+                </div>
+            </div>
+        </section>
+
+        <section id="chat" class="view hidden">
+            <div class="section-container">
+                <h2>AI Consultation</h2>
+                <div class="chat-container">
+                    <div id="chat-box" class="chat-box">
+                        <div class="msg bot">Hello! I'm Medi Agent. How are you feeling today?</div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="user-input" placeholder="Type symptoms...">
+                        <button onclick="sendMessage()"><i data-lucide="send"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="status" class="view hidden">
+            <div class="section-container">
+                <h2>Appointment Status</h2>
+                <div class="status-card">
+                    <p><strong>Dr. Michael Chen</strong> - Jan 15, 10:30 AM</p>
+                    <span class="tag" style="color: #22c55e;">Confirmed</span>
+                </div>
+                <div class="status-card" style="border-left-color: #f59e0b;">
+                    <p><strong>Dr. Sarah Johnson</strong> - Pending Approval</p>
+                    <span class="tag" style="color: #f59e0b;">Pending</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="wellness" class="view hidden">
+            <div class="section-container">
+                <h2>Wellness Lab</h2>
+                <div class="grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400" alt="Diet">
+                        <h4>Mediterranean Bowl</h4>
+                        <p>High-protein recipe for heart health.</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400" alt="Yoga">
+                        <h4>Morning Mobility</h4>
+                        <p>15-minute routine for spinal health.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="history" class="view hidden">
+            <div class="section-container">
+                <h2>Medical History</h2>
+                <div class="upload-box" style="border: 2px dashed var(--primary); padding: 40px; border-radius: 20px;">
+                    <i data-lucide="upload-cloud" class="icon"></i>
+                    <p>Upload reports for AI scanning</p>
+                    <input type="file" id="file-input" hidden>
+                    <button class="btn-primary" onclick="document.getElementById('file-input').click()">Select File</button>
+                </div>
+                <div id="alert-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
